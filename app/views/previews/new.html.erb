@@ -1,0 +1,12 @@
+<div class="col-md-8 col-md-offset-2 reviews-box">
+
+    <h1>Add a review</h1>
+    <hr><br>
+
+    <%= simple_form_for [@one_gem, @review] do |f| %>
+        <%= f.input :rating, label: "Rating(out of 5)", input_html: { min: 0, max: 5, value: f.object.rating || 0}  %>
+        <%= f.input :comment, label:"Comment" %>
+        <%= f.button :submit, "Submit", class: "btn btn-primary" %>
+    <% end %>
+
+</div>

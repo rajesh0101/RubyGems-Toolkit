@@ -1,0 +1,12 @@
+<div class="col-md-8 col-md-offset-2 reviews-box">
+    
+    <h1>Edit a Gem</h1>
+
+    <%= simple_form_for @one_gem_edit do |f| %>
+        <%= f.select :category_id, @all_categories %>
+        <%= f.input :title, label:"Gem Name" %>
+        <%= f.input :description, label:"Gem Description" %>
+        <%= f.button :submit, "Submit", class: "btn btn-primary" %>
+    <% end %>
+
+</div>

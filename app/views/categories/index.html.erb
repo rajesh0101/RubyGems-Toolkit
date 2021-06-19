@@ -1,0 +1,18 @@
+
+<div class="row">
+<h1>Category Overview</h1>
+<br>
+<p class="category-para">To give you an overview of what open source libraries are available for a given task we group projects for common problems into categories. The catalog itself is available for contributions.</p>
+</div>
+
+<hr><br>
+
+<div class="row">
+<% @all_categories.each do |item| %>
+    <div class="col-md-4">
+        <div class="category-landing box-cat">
+            <div><i class="fa fa-folder folder" aria-hidden="true"></i> <%= link_to item.name, category_path(item), class:"links-category" %></div>
+        </div>
+    </div>
+<% end %>
+</div>

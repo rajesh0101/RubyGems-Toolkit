@@ -1,0 +1,31 @@
+<div class="col-md-10 col-md-offset-1">
+
+    <h2><%= @one_category.name %></h2>
+    <hr>
+
+    <%= @all_gems_under_this_category.count %> GEMS FOUND IN TOTAL
+    <br><br>
+    <% if !@all_gems_under_this_category.empty? %>
+        <% @all_gems_under_this_category.each do |item| %>
+            <div style="border-bottom: 1px solid rgb(193, 196, 202); padding-top: 30px; padding-bottom: 30px;">
+                <h3><%= link_to item.title, mygem_path(item) %></h3>
+                <em>created <%= time_ago_in_words(item.created_at) %> ago</em>
+                <br>
+                <div class="desc-class-overflow"><%= item.description %></div>	
+            </div>
+        <% end %>
+    <% else %>
+        <h3>There are no gems currently in this category</h3>
+    <% end %>
+
+    <br><br>
+    
+    <div style="text-align: center">
+        <%= will_paginate @all_gems_under_this_category, renderer: BootstrapPagination::Rails %>
+    </div>
+
+</div>
+
+
+
+

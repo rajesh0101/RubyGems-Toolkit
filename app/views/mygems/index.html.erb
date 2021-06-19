@@ -1,0 +1,51 @@
+<h1>All Gems</h1>
+<br>
+<hr>
+    <% my_var=97 %>
+    <% while my_var<=122 %>
+        <% if @test==my_var.chr %>
+            <span style="padding-left: 18px; font-size: 40px;"><b><%= link_to my_var.chr, mygems_path(starts_with: my_var.chr), class: "active links-hover" %></b></span>
+        <% else %>
+            <span style="padding-left: 18px; font-size: 40px;"><b><%= link_to my_var.chr, mygems_path(starts_with: my_var.chr), class: "links-hover" %></b></span>
+        <% end %>
+        <% my_var=my_var+1 %>
+    <% end %>
+<hr>
+<%= @all_gems.count %> GEMS FOUND IN TOTAL
+<br><br>
+
+
+<% if !@all_gems.blank? %>
+    <% @all_gems.each do |item| %>
+        <div style="border-bottom: 1px solid rgb(193, 196, 202); padding-top: 30px; padding-bottom: 30px;">
+            <h3><%= link_to item.title, mygem_path(item), class: "links-only" %></h3> <em>created <%= time_ago_in_words(item.created_at) %> ago</em>
+            
+            <% if user_signed_in? %>
+                <% if item.user_id==current_user.id %>
+                    <span style="float: right">
+                        <%= link_to mygem_path(item), method: :delete, data: { confirm: "Are you sure you want to delete?" } do %>
+                            <i class="fa fa-trash fa-2x" aria-hidden="true" title="Delete"></i>
+                        <% end %>
+                    </span>
+
+                    <span style="float: right">
+                        <%= link_to edit_mygem_path(item) do %>
+                            <i class="fa fa-pencil fa-fw fa-2x" aria-hidden="true" title="Edit"></i>
+                        <% end %>
+                    </span>
+                <% end %>
+            <% end %>
+            
+            <br>
+            <div class="desc-class-overflow"><%= item.description %></div>	
+        </div>
+    <% end %>
+<% else %>
+        
+<% end %>
+
+<br>
+
+<div style="text-align: center">
+    <%= will_paginate @all_gems, renderer: BootstrapPagination::Rails %>
+</div>

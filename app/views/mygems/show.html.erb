@@ -1,0 +1,75 @@
+<div class="col-md-10 col-md-offset-1">
+
+    <div class="row">
+        <span style="float:left;">
+            <h1 class="show-heading"><%= @one_gem.title %></h1>
+        </span>
+        
+        <span style="float:right;">
+            <h1><%= @average_review %> / 5 <i class="fa fa-star checked-star" aria-hidden="true"></i></h1>
+            <h4>(based on <%= @one_gem.previews.count %> reviews)</h4>
+        </span>
+    </div>
+
+    <hr><br>
+
+    <h4 style="opacity: 0.8"><%= @one_gem.description %></h4>
+
+    <br><hr>
+
+    <div class="row">
+        <div class="col-md-4">
+            <h3 class="desc-show-page">AUTHOR:</h3><span><%= @one_gem.user.email %><span>
+            <h3 class="desc-show-page">Created:</h3> <%= time_ago_in_words(@one_gem.created_at) %> ago
+            <h3 class="desc-show-page">Last updated:</h3> <%= time_ago_in_words(@one_gem.updated_at) %> ago
+            <h3 class="desc-show-page">Category:</h3> <%= @one_gem.category.name %>
+        </div>
+    </div>
+
+    <hr>
+
+    <br><br><br><br><br><br>
+
+
+    <div class="reviews-box">
+
+        <h1>Reviews</h1>
+        <% if user_signed_in? %>
+            <% if @one_gem.user_id!=current_user.id %>
+                <%= link_to "Add Reviews", new_mygem_preview_path(@one_gem), class:"btn-custom" %>
+            <% end %>
+        <% end %>
+
+        <hr>
+
+        <div class="row">
+
+            <div class="col-md-10 col-md-offset-1">
+                <% if @all_previews.count!=0 %>
+                    <% @all_previews.each do |item| %>
+                        <div style="border-bottom: 1px solid rgb(193, 196, 202); padding-top: 30px; padding-bottom: 30px;">
+                            <h5><i class="fa fa-user-circle fa-2x"></i> <em> posted by <%= item.user.email %> <span style="float: right;"><%= time_ago_in_words(item.created_at) %> ago</span> </em></h5>
+                            <br>
+                            <div><%= item.rating %>/5 <i class="fa fa-star checked-star fa-sm" aria-hidden="true"></i></div>	
+                            <div><%= item.comment %></div>
+                            <br>
+
+                            <% if user_signed_in? %>
+                                <% if item.user_id==current_user.id %>
+                                <%= link_to "Edit", edit_mygem_preview_path(@one_gem, item), class:"btn-custom" %>
+                                <%= link_to "Delete", mygem_preview_path(@one_gem, item), method: :delete, data: { confirm: "Are you sure you want to delete?"}, class:"btn-custom" %>
+                                <% end %>
+                            <% end %>
+                        </div>
+                    <% end %>
+                <% else %>
+                    NO REVIEWS YET
+                    <br><br>
+                <% end %>
+
+            </div>
+        </div>
+    </div>
+    <br><br><br><br>
+</div>
+

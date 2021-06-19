@@ -1,0 +1,23 @@
+<h1>Search results <span style="font-size: 30px; color: red;"><em> (for <%= @query %>)</em></span></h1>
+<hr>
+
+<% if !@search_results.empty? %>
+    <%= @search_results.count %> GEMS FOUND IN TOTAL
+    <br>
+    <% @search_results.each do |item| %>
+        <div style="border-bottom: 1px solid rgb(193, 196, 202); padding-top: 30px; padding-bottom: 30px;">
+            <h3><%= link_to item.title, mygem_path(item), class: "links-only" %></h3> 
+            <em>created <%= time_ago_in_words(item.created_at) %> ago</em>
+            <br>
+            <div class="desc-class-overflow"><%= item.description %></div>
+        </div>
+    <% end %>
+<% else %>
+    <h5>NO GEMS FOUND</h5>
+<% end %>
+
+<br>
+
+<div style="text-align: center">
+    <%= will_paginate @search_results, renderer: BootstrapPagination::Rails %>
+</div>

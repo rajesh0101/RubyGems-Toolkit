@@ -1,0 +1,19 @@
+<div class="col-md-10 col-md-offset-1">
+
+    <h1>Your Activity Log</h1>
+    <hr><br><br>
+    <% if !@my_created_gems.empty? %>
+        <% @my_created_gems.each do |item| %>
+            <% gen_url= "/mygems/"+item.id.to_s %>
+            <a class="links-only-activity" href="<%= gen_url %>">
+                <div style="border-bottom: 1px solid rgb(193, 196, 202); padding-top: 40px; padding-bottom: 40px;">
+                    You created a gem <strong style="color: red"><%= item.title %></strong> <span style="float: right; color: black;"><%= time_ago_in_words(item.created_at) %> ago</span>
+                    <div></div>
+                </div>
+            </a>
+        <% end %>
+    <% else %>
+        <h3>You have no activity.</h3>
+    <% end %>
+
+</div>
